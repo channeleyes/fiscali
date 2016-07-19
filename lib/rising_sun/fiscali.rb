@@ -11,21 +11,21 @@ module RisingSun
     module ClassMethods
 
       def fiscal_zone=(zone)
-        @fiscali_start_month = FISCAL_ZONE[zone] || FY_START_MONTH
-        @fiscali_zone = zone
+        RequestStore.store[:fiscali_start_month] = FISCAL_ZONE[zone] || FY_START_MONTH
+        RequestStore.store[:fiscali_zone] = zone
       end
 
       def fy_start_month
-        @fiscali_start_month || FY_START_MONTH
+        RequestStore.store[:fiscali_start_month] || FY_START_MONTH
       end
 
       def fiscal_zone
-        @fiscali_zone
+        RequestStore.store[:fiscali_zone]
       end
 
       def fy_start_month=(month)
-        @fiscali_zone = nil
-        @fiscali_start_month = month
+        RequestStore.store[:fiscali_zone] = nil
+        RequestStore.store[:fiscali_start_month] = month
       end
 
       def financial_year_start(year=Date.today.year)
@@ -37,15 +37,15 @@ module RisingSun
       end
 
       def use_forward_year!
-        @fy_forward = true
+        RequestStore.store[:fy_forward] = true
       end
 
       def reset_forward_year!
-        @fy_forward = false
+        RequestStore.store[:fy_forward] = false
       end
 
       def uses_forward_year?
-        @fy_forward || false
+        RequestStore.store[:fy_forward] || false
       end
 
     end
